@@ -1,18 +1,31 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { title } from 'process';
 
 @Injectable()
 export class TracksService {
 
-    private baseUrl = 'http://localhost:3001/tracks';
+    private baseUrl = 'http://localhost:3001/tracks/';
 
     async getAll(){
-        const response = await fetch(this.baseUrl);
-        const data = await response.json();
-        return data;
+        try{                   
+            const response = await fetch(this.baseUrl);
+
+            if(!response.ok)
+                throw new NotFoundException('No se encontraron tracks en esa url');       
+       
+            const data = await response.json();
+            return data;
+        } catch(err){
+            if(err instanceof NotFoundException){
+                throw new NotFoundException('No se encontraron tracks en esa url');
+            }
+            throw new Error('Fallo el metodo getAll()')
+        }
+
     }
     
     async getOne(id:string){
+        console.log(this.baseUrl + id)
         const response = await fetch(this.baseUrl + id);
         const data = await response.json();
         return data;
@@ -29,7 +42,7 @@ export class TracksService {
         if(!response.ok)
             throw new Error('Error al crear el track');
         else
-            return "se creo el track con exito!";
+            return "";
 
     }
 

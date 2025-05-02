@@ -1,25 +1,26 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { TracksService } from './tracks.service';
 
 
 // localhost:3000/api/tracks
 
-@Controller('tracks')
+@Controller('api/tracks')
 export class TracksController {
 
     constructor(private readonly tracksService:TracksService){}
 
-    @Get('all')
+    @Get('')
     getAll(){
         return this.tracksService.getAll();
     }
     
     @Get(':id')
+    @HttpCode(HttpStatus.ACCEPTED)
     getOne(@Param('id') id:string){
         return this.tracksService.getOne(id);
     }
 
-    @Post('crear')
+    @Post('')
     create(@Body() track:any){
         return this.tracksService.create(track);
     }
