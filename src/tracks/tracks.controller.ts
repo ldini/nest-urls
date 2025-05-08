@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { TracksService } from './tracks.service';
 
 
@@ -16,7 +16,7 @@ export class TracksController {
     
     @Get(':id')
     @HttpCode(HttpStatus.ACCEPTED)
-    getOne(@Param('id') id:string){
+    getOne(@Param('id',ParseIntPipe) id:number){
         return this.tracksService.getOne(id);
     }
 

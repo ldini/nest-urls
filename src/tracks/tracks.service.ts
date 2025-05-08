@@ -24,7 +24,7 @@ export class TracksService {
 
     }
     
-    async getOne(id:string){
+    async getOne(id:number){
         console.log(this.baseUrl + id)
         const response = await fetch(this.baseUrl + id);
         const data = await response.json();

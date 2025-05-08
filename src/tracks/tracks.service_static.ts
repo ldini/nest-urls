@@ -14,9 +14,9 @@ export class TracksService {
         return this.tracks;
     }
     
-    getOne(id:string){
+    getOne(id:number){
         for(let i=0;i<this.tracks.length;i++){
-            if(this.tracks[i].id === parseInt(id)){
+            if(this.tracks[i].id === id){
                 return this.tracks[i];
             }
             else
